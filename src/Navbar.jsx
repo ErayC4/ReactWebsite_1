@@ -4,13 +4,7 @@ import DropdownMenu from "./DropdownMenu.jsx";
 import DropdownButton from "./DropdownButton.jsx";
 
 function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const searchbarDropDown = (
+  const searchbarDropdown = (
     <div className=" bg-slate-950 flex justify-between items-center mt-6 mb-14 ">
       <input
         type="text"
@@ -29,6 +23,10 @@ function Navbar() {
         </svg>
       </button>
     </div>
+  );
+
+  const xyzDropdown = (
+    <div>Hello</div>
   );
 
   const searchButton = (
@@ -57,6 +55,41 @@ function Navbar() {
       </button>
   );
 
+  const justifyButton = (
+          <button alt="justify-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="white"
+              viewBox="0 0 16 16"
+              className="w-7"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"
+              />
+            </svg>
+          </button>
+  );
+  
+  const [searchbarOpen, setSearchbarOpen] = useState(false);
+  const [xyzOpen, setXyzOpen] = useState(false);
+
+  const handleSearchbarToggle = () => {
+    setSearchbarOpen(!searchbarOpen);
+    // Falls das xyzDropdown offen ist, schließe es
+    if (xyzOpen) {
+      setXyzOpen(false);
+    }
+  };
+
+  const handleXyzToggle = () => {
+    setXyzOpen(!xyzOpen);
+    // Falls das searchbarDropdown offen ist, schließe es
+    if (searchbarOpen) {
+      setSearchbarOpen(false);
+    }
+  };
+
   return (
     <div id="navbar" className="fixed top-0 w-full z-50 bg-slate-950">
       <div className="flex justify-between items-center py-2">
@@ -78,29 +111,25 @@ function Navbar() {
 
           {/* Search Icon */}
           <DropdownButton
-            isOpen={isOpen}
-            onToggle={handleToggle}
+            isOpen={searchbarOpen}
+            onToggle={handleSearchbarToggle}
             displayIcon={searchButton}
             switchIcon={XButton}
           />
 
+          <DropdownButton
+            isOpen={xyzOpen}
+            onToggle={handleXyzToggle}
+            displayIcon={justifyButton}
+            switchIcon={XButton}
+          />
+
           {/* justify */}
-          <button alt="justify-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="white"
-              viewBox="0 0 16 16"
-              className="w-7"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"
-              />
-            </svg>
-          </button>
+          
         </div>
       </div>
-      {isOpen && <DropdownMenu content={searchbarDropDown}/>}
+      {searchbarOpen  && <DropdownMenu content={searchbarDropdown}/>}
+      {xyzOpen  && <DropdownMenu content={xyzDropdown}/>}
     </div>
   );
 }
