@@ -1,8 +1,15 @@
 import "./App.css";
-import DropDown from "./DropDown.jsx";
+import React, { useState } from "react";
+import DropdownMenu from "./DropdownMenu.jsx";
+import DropdownButton from "./DropdownButton.jsx";
 
 function Navbar() {
-  //
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+  };
+
   const searchbarDropDown = (
     <div className=" bg-slate-950 flex justify-between items-center mt-6 mb-14 ">
       <input
@@ -10,17 +17,7 @@ function Navbar() {
         placeholder="Search..."
         className="bg-transparent text-2xl border-b w-full pb-2 pl-2 text-white outline-none"
       />
-      <button>
-        <svg
-          className="w-5"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="white"
-          viewBox="0 0 16 16"
-        >
-          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
-        </svg>
-      </button>
-
+      
       <button alt="search-icon" id="dropdown" className="pl-8 pb-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -32,6 +29,32 @@ function Navbar() {
         </svg>
       </button>
     </div>
+  );
+
+  const searchButton = (
+    <button alt="search-icon" id="dropdown">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="white"
+        viewBox="0 0 16 16"
+        className="w-5"
+      >
+        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+      </svg>
+    </button>
+  );
+
+  const XButton = (
+      <button>
+        <svg
+          className="w-5"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="white"
+          viewBox="0 0 16 16"
+        >
+          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+        </svg>
+      </button>
   );
 
   return (
@@ -54,16 +77,12 @@ function Navbar() {
           />
 
           {/* Search Icon */}
-          <button alt="search-icon" id="dropdown">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="white"
-              viewBox="0 0 16 16"
-              className="w-5"
-            >
-              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-            </svg>
-          </button>
+          <DropdownButton
+            isOpen={isOpen}
+            onToggle={handleToggle}
+            displayIcon={searchButton}
+            switchIcon={XButton}
+          />
 
           {/* justify */}
           <button alt="justify-icon">
@@ -81,8 +100,7 @@ function Navbar() {
           </button>
         </div>
       </div>
-
-      <DropDown content={searchbarDropDown} />
+      {isOpen && <DropdownMenu content={searchbarDropDown}/>}
     </div>
   );
 }
