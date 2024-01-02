@@ -1,6 +1,5 @@
 import "./App.css";
 import React, { useState } from "react";
-import DropdownMenu from "./DropdownMenu.jsx";
 import DropdownButton from "./DropdownButton.jsx";
 
 function Navbar() {
@@ -26,7 +25,9 @@ function Navbar() {
   );
 
   const xyzDropdown = (
-    <div>Hello</div>
+    <div className="h-full">
+      Hello
+    </div>
   );
 
   const searchButton = (
@@ -61,7 +62,7 @@ function Navbar() {
               xmlns="http://www.w3.org/2000/svg"
               fill="white"
               viewBox="0 0 16 16"
-              className="w-7"
+              className="w-5"
             >
               <path
                 fill-rule="evenodd"
@@ -109,7 +110,7 @@ function Navbar() {
             className="rounded-3xl w-9 h-9 object-cover object-center"
           />
 
-          {/* Search Icon */}
+          {/* Search Icon Button*/}
           <DropdownButton
             isOpen={searchbarOpen}
             onToggle={handleSearchbarToggle}
@@ -117,6 +118,7 @@ function Navbar() {
             switchIcon={XButton}
           />
 
+          {/* justify Icon Button*/}
           <DropdownButton
             isOpen={xyzOpen}
             onToggle={handleXyzToggle}
@@ -124,14 +126,17 @@ function Navbar() {
             switchIcon={XButton}
           />
 
-          {/* justify */}
           
         </div>
       </div>
-      {searchbarOpen  && <DropdownMenu content={searchbarDropdown}/>}
-      {xyzOpen  && <DropdownMenu content={xyzDropdown}/>}
+      {searchbarOpen && searchbarDropdown}
+      {xyzOpen && xyzDropdown}
     </div>
   );
 }
 
 export default Navbar;
+
+
+
+ 
